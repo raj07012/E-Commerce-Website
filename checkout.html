@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<nav class="bg-white shadow">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">Cartigo</h1>
+    <a href="cart.html" class="text-blue-600">Back to Cart</a>
+  </div>
+</nav>
+
+<div class="max-w-6xl mx-auto px-4 mt-8 grid md:grid-cols-2 gap-8">
+
+  <!-- Form -->
+  <div class="bg-white p-6 rounded-xl shadow">
+    <h2 class="text-xl font-bold mb-4">Shipping Details</h2>
+
+    <input id="name" class="border p-2 w-full mb-3 rounded" placeholder="Full Name">
+    <input id="email" class="border p-2 w-full mb-3 rounded" placeholder="Email">
+    <input id="phone" class="border p-2 w-full mb-3 rounded" placeholder="Phone">
+    <textarea id="address" class="border p-2 w-full mb-3 rounded"
+      placeholder="Address"></textarea>
+
+    <button onclick="placeOrder()"
+      class="bg-blue-600 text-white w-full py-3 rounded hover:bg-blue-700">
+      Place Order
+    </button>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="bg-white p-6 rounded-xl shadow">
+    <h2 class="text-xl font-bold mb-4">Order Summary</h2>
+    <div id="orderSummary"></div>
+  </div>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function showSummary(){
+  let container = document.getElementById("orderSummary");
+  let total = 0;
+  container.innerHTML = "";
+
+  cart.forEach(item=>{
+    total += item.price * item.quantity;
+
+    container.innerHTML += `
+      <div class="flex justify-between mb-2">
+        <span>${item.name} x ${item.quantity}</span>
+        <span>₹${item.price * item.quantity}</span>
+      </div>`;
+  });
+
+  container.innerHTML += `
+    <hr class="my-3">
+    <div class="flex justify-between font-bold">
+      <span>Total</span>
+      <span>₹${total}</span>
+    </div>`;
+}
+
+showSummary();
+
+function placeOrder(){
+  let name=document.getElementById("name").value;
+  let email=document.getElementById("email").value;
+  let phone=document.getElementById("phone").value;
+  let address=document.getElementById("address").value;
+
+  if(name==="" || email==="" || phone==="" || address===""){
+    alert("All fields required");
+    return;
+  }
+
+  let order={name,email,phone,address,items:cart};
+  localStorage.setItem("order",JSON.stringify(order));
+  localStorage.removeItem("cart");
+
+  window.location.href="success.html";
+}
+
+</script>
+
+</body>
+</html>
