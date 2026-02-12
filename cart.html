@@ -10,7 +10,7 @@
 <nav class="bg-white shadow">
   <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
     <h1 class="text-xl font-bold">Cartigo</h1>
-    <a href="index.html" class="text-blue-600">Back to Shop</a>
+    <a href="main.html" class="text-blue-600">Back to Shop</a>
   </div>
 </nav>
 
@@ -52,7 +52,7 @@ function displayCart(){
     container.innerHTML = "<p>Your cart is empty</p>";
   }
 
-  cart.forEach((item,index)=>{
+  cart.forEach((item,main)=>{
     total += item.price * item.quantity;
 
     container.innerHTML += `
@@ -67,15 +67,15 @@ function displayCart(){
       </div>
 
       <div class="flex items-center space-x-3">
-        <button onclick="changeQty(${index},-1)"
+        <button onclick="changeQty(${main},-1)"
           class="bg-gray-200 px-3 py-1 rounded">-</button>
 
         <span>${item.quantity}</span>
 
-        <button onclick="changeQty(${index},1)"
+        <button onclick="changeQty(${main},1)"
           class="bg-gray-200 px-3 py-1 rounded">+</button>
 
-        <button onclick="removeItem(${index})"
+        <button onclick="removeItem(${main})"
           class="text-red-600 ml-4">Remove</button>
       </div>
 
@@ -88,17 +88,17 @@ function displayCart(){
 
 displayCart();
 
-function changeQty(index,change){
-  cart[index].quantity += change;
-  if(cart[index].quantity <= 0){
-    cart.splice(index,1);
+function changeQty(main,change){
+  cart[main].quantity += change;
+  if(cart[main].quantity <= 0){
+    cart.splice(main,1);
   }
   localStorage.setItem("cart",JSON.stringify(cart));
   displayCart();
 }
 
-function removeItem(index){
-  cart.splice(index,1);
+function removeItem(main){
+  cart.splice(main,1);
   localStorage.setItem("cart",JSON.stringify(cart));
   displayCart();
 }
