@@ -22,25 +22,6 @@
   </p>
 </div>
 
-<script>
-function login(){
-  let email=document.getElementById("email").value;
-  let password=document.getElementById("password").value;
-  let user=JSON.parse(localStorage.getItem("user"));
-
-  if(!user){
-    alert("No account found");
-    return;
-  }
-
-  if(email===user.email && password===user.password){
-    localStorage.setItem("isLoggedIn","true");
-    window.location.href="main.html";
-  }else{
-    alert("Invalid credentials");
-  }
-}
-</script>
-
+<script src="auth.js"></script>
 </body>
 </html>

@@ -23,22 +23,6 @@
   </p>
 </div>
 
-<script>
-function signup(){
-  let name = document.getElementById("name").value;
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
-
-  if(name==="" || email==="" || password===""){
-    alert("All fields required");
-    return;
-  }
-
-  localStorage.setItem("user", JSON.stringify({name,email,password}));
-  alert("Account Created");
-  window.location.href="login.html";
-}
-</script>
-
+<script src="auth.js"></script>
 </body>
 </html>
